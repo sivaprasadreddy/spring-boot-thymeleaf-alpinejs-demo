@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Add Todo</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+    <div x-data="initData()">
+        <h1 x-text="header">Header</h1>
+        <form class="row g-2">
+            <div class="col-md-6">
+                <label for="content" class="visually-hidden">Todo</label>
+                <input type="text" class="form-control"
+                       id="content" name="content"
+                       x-model="newTodo.content"
+                       placeholder="Enter todo text">
+            </div>
+            <div class="col-auto">
+                <button type="button" class="btn btn-primary mb-3" @click="addTodo">Add</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div layout:fragment="pageScripts">
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('initData', () => ({
+            "header": "Add New Todo",
+            newTodo: {content: ''},
+            addTodo() {
+                $.ajax ({
+                    url: '/api/todos',
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json",
+                    data : JSON.stringify(this.newTodo),
+                    complete: () => {
+                        window.location = "/"
+                    }
+                });
+            },
+        }))
+    });
+</script>
+</div>
+</body>
+</html>

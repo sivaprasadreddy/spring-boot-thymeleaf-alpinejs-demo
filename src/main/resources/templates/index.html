@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>TodoList</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+    <div x-data="initData()">
+        <h1 x-text="header">Header</h1>
+        <h3>Todos count: <span x-text="todos.length">0</span></h3>
+        <ul x-data="todos">
+            <template x-for="todo in todos">
+                <li><a x-bind:href="'/todos/'+todo.id" x-text="todo.content"></a></li>
+            </template>
+        </ul>
+    </div>
+</div>
+<div layout:fragment="pageScripts">
+<script th:src="@{'/js/todos.js'}"></script>
+</div>
+</body>
+</html>

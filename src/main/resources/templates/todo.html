@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>View Todo</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div th:x-data="|initData(${todoId})|">
+        <h1 x-text="header">Header</h1>
+        <form class="row g-2">
+            <div class="col-md-6">
+                <label for="content" class="visually-hidden">Todo</label>
+                <input type="text" class="form-control"
+                       id="content" name="content"
+                       x-model="todo.content"
+                       placeholder="Enter todo text">
+            </div>
+            <div class="col-auto">
+                <button type="button" class="btn btn-primary mb-3" @click="updateTodo">Save</button>
+                <button type="button" class="btn btn-danger mb-3" @click="deleteTodo">Delete</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div layout:fragment="pageScripts">
+<script th:src="@{'/js/todo.js'}"></script>
+</div>
+</body>
+</html>
